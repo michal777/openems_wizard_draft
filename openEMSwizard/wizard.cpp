@@ -1,7 +1,8 @@
 //Copyright Michal Stec 2019
 
 #include "wizard.h"
-#include "page_1.h"
+#include "page_start.h"
+#include "page_basic_sim_setup.h"
 #include "page_2.h"
 #include "page_3.h"
 
@@ -35,6 +36,8 @@ wxWizardPageSimple *MyWizard::ReturnWorkflowStep(wxWizard *parent, wxString work
 {
     if(!workflowname.Cmp(wxT("Start page")))
         return new PageStart(parent, NULL, NULL);
+    if(!workflowname.Cmp(wxT("Basic simulation setup")))
+        return new PageBasicSimSetup(parent, NULL, NULL);
     if(!workflowname.Cmp(wxT("step2")))
         return new PageSelectSomething2(parent, NULL, NULL);
     if(!workflowname.Cmp(wxT("step3")))

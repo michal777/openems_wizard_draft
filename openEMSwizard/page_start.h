@@ -1,5 +1,5 @@
-#ifndef PAGE_1_INCLUDED
-#define PAGE_1_INCLUDED
+#ifndef PAGE_START_INCLUDED
+#define PAGE_START_INCLUDED
 
 #include <wx/wx.h>
 #include <wx/dirdlg.h>
@@ -28,4 +28,4 @@ public:
     wxDECLARE_EVENT_TABLE();
 };
 
-#endif // PAGE_1_INCLUDED
+#endif // PAGE_START_INCLUDED

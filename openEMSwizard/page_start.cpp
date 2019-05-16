@@ -1,4 +1,4 @@
-#include "page_1.h"
+#include "page_start.h"
 
 PageStart::PageStart(wxWizard *parent, wxWizardPageSimple *prev, wxWizardPageSimple *next): wxWizardPageSimple(parent, prev, next)
 {
@@ -13,8 +13,6 @@ PageStart::PageStart(wxWizard *parent, wxWizardPageSimple *prev, wxWizardPageSim
     wxStaticText *StaticText3 = new wxStaticText(this, -1, _("path to simulation directory"), wxPoint(30,80), wxSize(300,20), 0, wxT("ID_ANY"));
     TextSimulationPath = new wxTextCtrl(this, SetSimulationPath, wxT(""), wxPoint(200,80), wxSize(300,20), 0, wxDefaultValidator, wxT("SetSimulationPath"));
     wxButton *ButtonSetSimulationPath = new wxButton(this, SetSimulationPath, wxString("..."), wxPoint(520,80), wxSize(20,20));
-
-
 }
 
 void PageStart::OnSetOpenEMSPath(wxCommandEvent& event)

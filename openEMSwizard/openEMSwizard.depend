@@ -1697,3 +1697,67 @@
 	<wx/wx.h>
 	"wx/wizard.h"
 
+1557783335 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/main_app.cpp
+	"main_app.h"
+	"main_frame.h"
+
+1557782234 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/main_app.h
+	<wx/wx.h>
+
+1558044347 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/main_frame.h
+	<wx/wx.h>
+	<wx/textfile.h>
+	<wx/filedlg.h>
+
+1558044928 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/main_frame.cpp
+	"main_frame.h"
+	"wizard.h"
+
+1557784193 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/wizard.h
+	<wx/wx.h>
+	"wx/wizard.h"
+	<wx/textfile.h>
+
+1557960729 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_1.cpp
+	"page_1.h"
+
+1557960289 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_1.h
+	<wx/wx.h>
+	<wx/dirdlg.h>
+	"wx/wizard.h"
+
+1557785163 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_2.cpp
+	"page_2.h"
+
+1557784846 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_2.h
+	<wx/wx.h>
+	"wx/wizard.h"
+
+1557785163 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_3.cpp
+	"page_3.h"
+
+1557784844 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_3.h
+	<wx/wx.h>
+	"wx/wizard.h"
+
+1557958697 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/wizard.cpp
+	"wizard.h"
+	"page_1.h"
+	"page_2.h"
+	"page_3.h"
+
+1558045311 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_start.cpp
+	"page_start.h"
+
+1558045193 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_start.h
+	<wx/wx.h>
+	<wx/dirdlg.h>
+	"wx/wizard.h"
+
+1558046068 source:/home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_basic_sim_setup.cpp
+	"page_basic_sim_setup.h"
+
+1558045922 /home/michal/wxWidgets_projects/openems_wizard_draft/openEMSwizard/page_basic_sim_setup.h
+	<wx/wx.h>
+	"wx/wizard.h"
+

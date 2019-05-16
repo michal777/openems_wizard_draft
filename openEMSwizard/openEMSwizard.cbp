@@ -41,12 +41,14 @@
 		<Unit filename="main_app.h" />
 		<Unit filename="main_frame.cpp" />
 		<Unit filename="main_frame.h" />
-		<Unit filename="page_1.cpp" />
-		<Unit filename="page_1.h" />
 		<Unit filename="page_2.cpp" />
 		<Unit filename="page_2.h" />
 		<Unit filename="page_3.cpp" />
 		<Unit filename="page_3.h" />
+		<Unit filename="page_basic_sim_setup.cpp" />
+		<Unit filename="page_basic_sim_setup.h" />
+		<Unit filename="page_start.cpp" />
+		<Unit filename="page_start.h" />
 		<Unit filename="wizard.cpp" />
 		<Unit filename="wizard.h" />
 		<Extensions>

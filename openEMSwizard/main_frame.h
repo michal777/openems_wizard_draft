@@ -10,7 +10,7 @@
 enum
 {
     Main_Run_Wizard = 1,
-    Main_Open_File = 2
+    SetWorkflowFilePath = 2
 };
 
 
@@ -21,8 +21,10 @@ public:
 
     wxTextFile *workflowfile;
 
-    void OnOpenFile(wxCommandEvent& event);
+    void OnSetWorkflowFilePath(wxCommandEvent& event);
     void OnRunWizard(wxCommandEvent& event);
+
+    wxTextCtrl *TextWorkflowFilePath;
 
     wxDECLARE_EVENT_TABLE();
 };
