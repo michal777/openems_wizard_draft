@@ -5,7 +5,7 @@
 
 #include <wx/wx.h>
 #include <wx/textfile.h>
-
+#include <wx/filedlg.h>
 
 enum
 {

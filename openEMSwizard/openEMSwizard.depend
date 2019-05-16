@@ -1633,9 +1633,10 @@
 1522244266 /usr/include/wx-3.0/wx/gtk/mdi.h
 	"wx/frame.h"
 
-1557783762 /home/michal/wxWidgets_projects/openEMSwizard/main_frame.h
+1557939009 /home/michal/wxWidgets_projects/openEMSwizard/main_frame.h
 	<wx/wx.h>
 	<wx/textfile.h>
+	<wx/filedlg.h>
 
 1522244266 /usr/include/wx-3.0/wx/textfile.h
 	"wx/defs.h"
@@ -1649,11 +1650,11 @@
 	"wx/string.h"
 	"wx/dynarray.h"
 
-1557784218 source:/home/michal/wxWidgets_projects/openEMSwizard/main_frame.cpp
+1557939501 source:/home/michal/wxWidgets_projects/openEMSwizard/main_frame.cpp
 	"main_frame.h"
 	"wizard.h"
 
-1557784948 source:/home/michal/wxWidgets_projects/openEMSwizard/wizard.cpp
+1557958697 source:/home/michal/wxWidgets_projects/openEMSwizard/wizard.cpp
 	"wizard.h"
 	"page_1.h"
 	"page_2.h"
@@ -1674,21 +1675,22 @@
 
 1522244266 /usr/include/wx-3.0/wx/generic/wizard.h
 
-1557784603 source:/home/michal/wxWidgets_projects/openEMSwizard/page_1.cpp
+1557960611 source:/home/michal/wxWidgets_projects/openEMSwizard/page_1.cpp
 	"page_1.h"
 
-1557784848 /home/michal/wxWidgets_projects/openEMSwizard/page_1.h
+1557960289 /home/michal/wxWidgets_projects/openEMSwizard/page_1.h
 	<wx/wx.h>
+	<wx/dirdlg.h>
 	"wx/wizard.h"
 
-1557784782 source:/home/michal/wxWidgets_projects/openEMSwizard/page_2.cpp
+1557785163 source:/home/michal/wxWidgets_projects/openEMSwizard/page_2.cpp
 	"page_2.h"
 
 1557784846 /home/michal/wxWidgets_projects/openEMSwizard/page_2.h
 	<wx/wx.h>
 	"wx/wizard.h"
 
-1557784740 source:/home/michal/wxWidgets_projects/openEMSwizard/page_3.cpp
+1557785163 source:/home/michal/wxWidgets_projects/openEMSwizard/page_3.cpp
 	"page_3.h"
 
 1557784844 /home/michal/wxWidgets_projects/openEMSwizard/page_3.h

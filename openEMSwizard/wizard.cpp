@@ -27,12 +27,14 @@ MyWizard::MyWizard(wxFrame *frame, wxTextFile *workflowfile)
     for(i_page = 1; i_page < page_count; ++i_page)
         PageArray[i_page-1]->Chain(PageArray[i_page]);  //connect all pages
     m_page1 = PageArray[0]; //pointer to the first page will be needed for RunWizard function
+
+    GetPageAreaSizer()->Add(m_page1);
 }
 
 wxWizardPageSimple *MyWizard::ReturnWorkflowStep(wxWizard *parent, wxString workflowname)
 {
-    if(!workflowname.Cmp(wxT("step1")))
-        return new PageSelectSomething1(parent, NULL, NULL);
+    if(!workflowname.Cmp(wxT("Start page")))
+        return new PageStart(parent, NULL, NULL);
     if(!workflowname.Cmp(wxT("step2")))
         return new PageSelectSomething2(parent, NULL, NULL);
     if(!workflowname.Cmp(wxT("step3")))

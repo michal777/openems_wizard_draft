@@ -41,7 +41,6 @@
 		<Unit filename="main_app.h" />
 		<Unit filename="main_frame.cpp" />
 		<Unit filename="main_frame.h" />
-		<Unit filename="page_1" />
 		<Unit filename="page_1.cpp" />
 		<Unit filename="page_1.h" />
 		<Unit filename="page_2.cpp" />

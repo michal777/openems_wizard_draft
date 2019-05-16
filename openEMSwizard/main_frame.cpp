@@ -13,7 +13,10 @@ MyFrame::MyFrame(const wxString& title): wxFrame(NULL, wxID_ANY, title, wxDefaul
 
 void MyFrame::OnOpenFile(wxCommandEvent& event)
 {
-    workflowfile = new wxTextFile(wxT("exampleworkflowfile"));
+    wxFileDialog OpenFileDialog(this, wxT("Open workflow file"), "", "", "workflow file (*.wff_oems)|*.wff_oems", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+    if (OpenFileDialog.ShowModal() == wxID_CANCEL)
+        return;     // the user changed idea...
+    workflowfile = new wxTextFile(OpenFileDialog.GetPath());
     workflowfile->Open();
 }
 
