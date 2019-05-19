@@ -16,6 +16,7 @@ public:
     void ConfigSimPar(void);
     void ConfigSimBox(void);
 
+    bool validatePage();
     void SaveToSimScriptBuffer(void);
     void ReadFromSimScriptBuffer(void);
     QString *text_save_to_simscript;
@@ -43,6 +44,14 @@ public:
     QLineEdit *text_bb_pz;
     QComboBox *combo_bb_pz;
 
+    QString GetFreqMultiplier(void) {    if(!QString::compare("GHz", combo_frequnit->currentText())) return "1e9";
+                                    else if(!QString::compare("MHz", combo_frequnit->currentText())) return "1e6";
+                                    else if(!QString::compare("kHz", combo_frequnit->currentText())) return "1e3";
+                                    else if(!QString::compare("Hz", combo_frequnit->currentText())) return "1e0";}
+
+    QString GetUnitMultiplier(void) {    if(!QString::compare("m", combo_unit->currentText())) return "1e0";
+                                    else if(!QString::compare("mm", combo_unit->currentText())) return "1e-3";
+                                    else if(!QString::compare("um", combo_unit->currentText())) return "1e-6";}
 //public slots:
 //    void mySlot(int idx);
 };

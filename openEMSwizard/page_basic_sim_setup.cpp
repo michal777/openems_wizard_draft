@@ -1,7 +1,9 @@
 #include "page_basic_sim_setup.h"
-
+#include <QDebug>
 PageBasicSimSetup::PageBasicSimSetup(QWizard *parent)
 {
+    text_save_to_simscript = new QString;
+
     QVBoxLayout *layout_page_basic_sim_setup = new QVBoxLayout();
     ConfigSimPar();
     ConfigSimBox();
@@ -10,10 +12,22 @@ PageBasicSimSetup::PageBasicSimSetup(QWizard *parent)
     setLayout(layout_page_basic_sim_setup);
 }
 
+bool PageBasicSimSetup::validatePage()
+{
+    SaveToSimScriptBuffer();
+    return true;
+}
 
 void PageBasicSimSetup::SaveToSimScriptBuffer(void)
 {
     text_save_to_simscript->clear();
+
+    text_save_to_simscript->append("physical_constants;\n");
+    text_save_to_simscript->append(QString("unit = %1;\n").arg(GetUnitMultiplier()));
+    text_save_to_simscript->append(QString("fmin = %1 * %2;\n").arg(text_fmin->text()).arg(GetFreqMultiplier()));
+    text_save_to_simscript->append(QString("fmax = %1 * %2;\n").arg(text_fmax->text()).arg(GetFreqMultiplier()));
+
+    qDebug("%s", qUtf8Printable(*text_save_to_simscript));
 }
 
 void PageBasicSimSetup::ReadFromSimScriptBuffer(void)
