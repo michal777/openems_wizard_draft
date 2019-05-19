@@ -1,31 +1,27 @@
-#ifndef PAGE_START_INCLUDED
-#define PAGE_START_INCLUDED
+#ifndef PAGE_START_H
+#define PAGE_START_H
 
-#include <wx/wx.h>
-#include <wx/dirdlg.h>
-#include "wx/wizard.h"
+#include <QWizard>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLabel>
+#include <QFileDialog>
 
-enum
+
+class PageStart : public QWizardPage
 {
-    SetOpenEMSPath = 1,
-    SetCSXCADPath = 2,
-    SetSimulationPath = 3
-};
-
-class PageStart : public wxWizardPageSimple
-{
+    Q_OBJECT
 public:
-    PageStart(wxWizard *parent, wxWizardPageSimple *prev, wxWizardPageSimple *next);
+    PageStart(QWizard *parent);
 
-    void OnSetOpenEMSPath(wxCommandEvent& event);
-    void OnSetCSXCADPath(wxCommandEvent& event);
-    void OnSetSimulationPath(wxCommandEvent& event);
+    QLineEdit *TextOpenEMSPath;
+    QLineEdit *TextCSXCADPath;
+    QLineEdit *TextSimulationPath;
 
-    wxTextCtrl *TextOpenEMSPath;
-    wxTextCtrl *TextCSXCADPath;
-    wxTextCtrl *TextSimulationPath;
-
-    wxDECLARE_EVENT_TABLE();
+public slots:
+    void OnSetOpenEMSPath();
+    void OnSetCSXCADPath();
+    void OnSetSimulationPath();
 };
 
-#endif // PAGE_START_INCLUDED
+#endif // PAGE_START_H

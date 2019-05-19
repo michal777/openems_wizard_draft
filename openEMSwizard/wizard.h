@@ -1,22 +1,21 @@
-//Copyright Michal Stec 2019
+#ifndef WIZARD_H
+#define WIZARD_H
 
-#ifndef WIZARD_H_INCLUDED
-#define WIZARD_H_INCLUDED
+#include <QWizard>
+#include <QWizardPage>
+#include <QMainWindow>
+#include <QFile>
+//#include <QLineEdit>
+//#include <QPushButton>
+//#include <QLabel>
+//#include <QFileDialog>
 
-#include <wx/wx.h>
-#include "wx/wizard.h"
-#include <wx/textfile.h>
-
-
-class MyWizard: public wxWizard
+class MyWizard : public QWizard
 {
+    Q_OBJECT
 public:
-    MyWizard(wxFrame *frame, wxTextFile *workflowfile);
-    wxWizardPageSimple *m_page1;
-    wxWizardPageSimple *GetFirstPage() const {return m_page1;}
-
-    wxWizardPageSimple *ReturnWorkflowStep(wxWizard *parent, wxString workflowname);
+    MyWizard(QMainWindow *parent, QFile *workflowfile);
+    QWizardPage *ReturnWorkflowStep(QWizard *parent, QString workflowname);
 };
 
-
-#endif // WIZARD_H_INCLUDED
+#endif // WIZARD_H
