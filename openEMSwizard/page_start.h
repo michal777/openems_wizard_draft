@@ -14,6 +14,11 @@ class PageStart : public QWizardPage
 public:
     PageStart(QWizard *parent);
 
+    bool validatePage();
+    void SaveToSimScriptBuffer(void);
+    void ReadFromSimScriptBuffer(void);
+    QString *text_save_to_simscript;
+
     QLineEdit *TextOpenEMSPath;
     QLineEdit *TextCSXCADPath;
     QLineEdit *TextSimulationPath;

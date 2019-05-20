@@ -15,6 +15,7 @@ public:
     PageBasicSimSetup(QWizard *parent);
     void ConfigSimPar(void);
     void ConfigSimBox(void);
+    QString ReturnConfigFDTD(void);
 
     bool validatePage();
     void SaveToSimScriptBuffer(void);
@@ -30,6 +31,17 @@ public:
     QLineEdit *text_fmin;
     QLineEdit *text_fmax;
     QComboBox *combo_frequnit;
+
+    QLineEdit *init_ftdt_param_NrTS;
+    QLineEdit *init_ftdt_param_EndCriteria;
+    QLineEdit *init_ftdt_param_MaxTime;
+    QLineEdit *init_ftdt_param_OverSampling;
+    QLineEdit *init_ftdt_param_CoordSystem;
+    QLineEdit *init_ftdt_param_MultiGrid;
+    QLineEdit *init_ftdt_param_TimeStep;
+    QLineEdit *init_ftdt_param_TimeStepFactor;
+    QLineEdit *init_ftdt_param_TimeStepMethod;
+    QLineEdit *init_ftdt_param_CellConstantMaterial;
 
     QLineEdit *text_bb_nx;
     QComboBox *combo_bb_nx;
