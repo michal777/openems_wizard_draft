@@ -17,7 +17,7 @@ public:
     bool validatePage();
     void SaveToSimScriptBuffer(void);
     void ReadFromSimScriptBuffer(void);
-    QString *text_save_to_simscript;
+    QString text_save_to_simscript;
 
     QLineEdit *TextOpenEMSPath;
     QLineEdit *TextCSXCADPath;

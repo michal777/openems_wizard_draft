@@ -30,7 +30,7 @@ void MainWindow::OnSetWorkflowFilePath()
 
 void MainWindow::OnRunWizard()
 {
-    workflowfile = new QFile(TextWorkflowFilePath->text());
+    workflowfile = new QFile(TextWorkflowFilePath->text(), this);
     workflowfile->open(QIODevice::ReadOnly);
     MyWizard *wizard = new MyWizard(this, workflowfile);
     wizard->show();

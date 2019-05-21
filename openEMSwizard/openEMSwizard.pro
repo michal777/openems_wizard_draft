@@ -28,10 +28,12 @@ SOURCES += \
         mainwindow.cpp \
     wizard.cpp \
     page_start.cpp \
-    page_basic_sim_setup.cpp
+    page_basic_sim_setup.cpp \
+    general_geometry_settings.cpp
 
 HEADERS += \
         mainwindow.h \
     wizard.h \
     page_start.h \
-    page_basic_sim_setup.h
+    page_basic_sim_setup.h \
+    general_geometry_settings.h

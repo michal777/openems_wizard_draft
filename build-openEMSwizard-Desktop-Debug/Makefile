@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = openEMSwizard1.0.0
-DISTDIR = /home/michal/cpp_projects/openems_wizard_draft_qt/build-openEMSwizard-Desktop-Debug/.tmp/openEMSwizard1.0.0
+DISTDIR = /home/michal/cpp_projects/openems_wizard_draft/build-openEMSwizard-Desktop-Debug/.tmp/openEMSwizard1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -54,19 +54,23 @@ SOURCES       = ../openEMSwizard/main.cpp \
 		../openEMSwizard/mainwindow.cpp \
 		../openEMSwizard/wizard.cpp \
 		../openEMSwizard/page_start.cpp \
-		../openEMSwizard/page_basic_sim_setup.cpp moc_mainwindow.cpp \
+		../openEMSwizard/page_basic_sim_setup.cpp \
+		../openEMSwizard/general_geometry_settings.cpp moc_mainwindow.cpp \
 		moc_wizard.cpp \
 		moc_page_start.cpp \
-		moc_page_basic_sim_setup.cpp
+		moc_page_basic_sim_setup.cpp \
+		moc_general_geometry_settings.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		wizard.o \
 		page_start.o \
 		page_basic_sim_setup.o \
+		general_geometry_settings.o \
 		moc_mainwindow.o \
 		moc_wizard.o \
 		moc_page_start.o \
-		moc_page_basic_sim_setup.o
+		moc_page_basic_sim_setup.o \
+		moc_general_geometry_settings.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -158,11 +162,13 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../openEMSwizard/openEMSwizard.pro ../openEMSwizard/mainwindow.h \
 		../openEMSwizard/wizard.h \
 		../openEMSwizard/page_start.h \
-		../openEMSwizard/page_basic_sim_setup.h ../openEMSwizard/main.cpp \
+		../openEMSwizard/page_basic_sim_setup.h \
+		../openEMSwizard/general_geometry_settings.h ../openEMSwizard/main.cpp \
 		../openEMSwizard/mainwindow.cpp \
 		../openEMSwizard/wizard.cpp \
 		../openEMSwizard/page_start.cpp \
-		../openEMSwizard/page_basic_sim_setup.cpp
+		../openEMSwizard/page_basic_sim_setup.cpp \
+		../openEMSwizard/general_geometry_settings.cpp
 QMAKE_TARGET  = openEMSwizard
 DESTDIR       = 
 TARGET        = openEMSwizard
@@ -374,8 +380,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../openEMSwizard/mainwindow.h ../openEMSwizard/wizard.h ../openEMSwizard/page_start.h ../openEMSwizard/page_basic_sim_setup.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../openEMSwizard/main.cpp ../openEMSwizard/mainwindow.cpp ../openEMSwizard/wizard.cpp ../openEMSwizard/page_start.cpp ../openEMSwizard/page_basic_sim_setup.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../openEMSwizard/mainwindow.h ../openEMSwizard/wizard.h ../openEMSwizard/page_start.h ../openEMSwizard/page_basic_sim_setup.h ../openEMSwizard/general_geometry_settings.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../openEMSwizard/main.cpp ../openEMSwizard/mainwindow.cpp ../openEMSwizard/wizard.cpp ../openEMSwizard/page_start.cpp ../openEMSwizard/page_basic_sim_setup.cpp ../openEMSwizard/general_geometry_settings.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -407,28 +413,33 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_wizard.cpp moc_page_start.cpp moc_page_basic_sim_setup.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_wizard.cpp moc_page_start.cpp moc_page_basic_sim_setup.cpp moc_general_geometry_settings.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_wizard.cpp moc_page_start.cpp moc_page_basic_sim_setup.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_wizard.cpp moc_page_start.cpp moc_page_basic_sim_setup.cpp moc_general_geometry_settings.cpp
 moc_mainwindow.cpp: ../openEMSwizard/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft_qt/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/mainwindow.h -o moc_mainwindow.cpp
 
 moc_wizard.cpp: ../openEMSwizard/wizard.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft_qt/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/wizard.h -o moc_wizard.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/wizard.h -o moc_wizard.cpp
 
 moc_page_start.cpp: ../openEMSwizard/page_start.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft_qt/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/page_start.h -o moc_page_start.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/page_start.h -o moc_page_start.cpp
 
 moc_page_basic_sim_setup.cpp: ../openEMSwizard/page_basic_sim_setup.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft_qt/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/page_basic_sim_setup.h -o moc_page_basic_sim_setup.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/page_basic_sim_setup.h -o moc_page_basic_sim_setup.cpp
+
+moc_general_geometry_settings.cpp: ../openEMSwizard/general_geometry_settings.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/general_geometry_settings.h -o moc_general_geometry_settings.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -452,7 +463,8 @@ mainwindow.o: ../openEMSwizard/mainwindow.cpp ../openEMSwizard/mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../openEMSwizard/mainwindow.cpp
 
 wizard.o: ../openEMSwizard/wizard.cpp ../openEMSwizard/wizard.h \
-		../openEMSwizard/page_start.h
+		../openEMSwizard/page_start.h \
+		../openEMSwizard/page_basic_sim_setup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wizard.o ../openEMSwizard/wizard.cpp
 
 page_start.o: ../openEMSwizard/page_start.cpp ../openEMSwizard/page_start.h
@@ -460,6 +472,9 @@ page_start.o: ../openEMSwizard/page_start.cpp ../openEMSwizard/page_start.h
 
 page_basic_sim_setup.o: ../openEMSwizard/page_basic_sim_setup.cpp ../openEMSwizard/page_basic_sim_setup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o page_basic_sim_setup.o ../openEMSwizard/page_basic_sim_setup.cpp
+
+general_geometry_settings.o: ../openEMSwizard/general_geometry_settings.cpp ../openEMSwizard/general_geometry_settings.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o general_geometry_settings.o ../openEMSwizard/general_geometry_settings.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -472,6 +487,9 @@ moc_page_start.o: moc_page_start.cpp
 
 moc_page_basic_sim_setup.o: moc_page_basic_sim_setup.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_page_basic_sim_setup.o moc_page_basic_sim_setup.cpp
+
+moc_general_geometry_settings.o: moc_general_geometry_settings.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_general_geometry_settings.o moc_general_geometry_settings.cpp
 
 ####### Install
 

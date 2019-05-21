@@ -5,10 +5,6 @@
 #include <QWizardPage>
 #include <QMainWindow>
 #include <QFile>
-//#include <QLineEdit>
-//#include <QPushButton>
-//#include <QLabel>
-//#include <QFileDialog>
 
 class MyWizard : public QWizard
 {
