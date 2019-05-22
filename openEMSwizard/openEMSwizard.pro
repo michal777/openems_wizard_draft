@@ -29,11 +29,17 @@ SOURCES += \
     wizard.cpp \
     page_start.cpp \
     page_basic_sim_setup.cpp \
-    general_geometry_settings.cpp
+    page_general_geometry_settings.cpp \
+    page_geometry.cpp \
+    page_ports.cpp \
+    page_results.cpp
 
 HEADERS += \
         mainwindow.h \
     wizard.h \
     page_start.h \
     page_basic_sim_setup.h \
-    general_geometry_settings.h
+    page_general_geometry_settings.h \
+    page_geometry.h \
+    page_ports.h \
+    page_results.h

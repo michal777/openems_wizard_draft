@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QComboBox>
+#include <QPushButton>
 #include <QGridLayout>
 #include <QGroupBox>
 
@@ -14,7 +15,10 @@ class PageBasicSimSetup : public QWizardPage
 public:
     PageBasicSimSetup(QWizard *parent);
     void ConfigSimPar(void);
+    void ConfigFDTDSettings(void);
+    QDialog *window_fdtd_setings;
     QString ReturnConfigFDTD(void);
+    QString init_fdtd_line;
 
     bool validatePage();
     void SaveToSimScriptBuffer(void);
@@ -44,8 +48,9 @@ public:
                                     else if(!QString::compare("kHz", combo_frequnit->currentText())) return "1e3";
                                     else if(!QString::compare("Hz", combo_frequnit->currentText())) return "1e0";}
 
-//public slots:
-//    void mySlot(int idx);
+public slots:
+    void OnFDTDSettings();
+    void OnCloseFDTDSettings();
 };
 
 #endif // PAGE_BASIC_SIM_SETUP_H

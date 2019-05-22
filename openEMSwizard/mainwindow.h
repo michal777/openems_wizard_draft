@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QFileDialog>
 #include <QWizard>
+#include <QSettings>
 
 class MainWindow : public QMainWindow
 {
@@ -16,6 +17,11 @@ public:
     MainWindow(QWidget *parent = 0);
     QFile *workflowfile;
     QLineEdit *TextWorkflowFilePath;
+
+    void SaveSettings();
+    void LoadSettings();
+    QString file_main_settings;
+
     ~MainWindow();
 public slots:
     void OnSetWorkflowFilePath();

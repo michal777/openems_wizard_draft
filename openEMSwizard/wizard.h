@@ -11,7 +11,7 @@ class MyWizard : public QWizard
     Q_OBJECT
 public:
     MyWizard(QMainWindow *parent, QFile *workflowfile);
-    QWizardPage *ReturnWorkflowStep(QWizard *parent, QString workflowname);
+    QWizardPage *ReturnWorkflowStep(QString workflowname);
 };
 
 #endif // WIZARD_H

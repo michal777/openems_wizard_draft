@@ -1,5 +1,5 @@
-#ifndef GENERAL_GEOMETRY_SETTINGS_H
-#define GENERAL_GEOMETRY_SETTINGS_H
+#ifndef PAGE_GENERAL_GEOMETRY_SETTINGS_H
+#define PAGE_GENERAL_GEOMETRY_SETTINGS_H
 
 #include <QWizard>
 #include <QLineEdit>
@@ -8,11 +8,11 @@
 #include <QGridLayout>
 #include <QGroupBox>
 
-class GeneralGeometrySettings : public QWizardPage
+class PageGeneralGeometrySettings : public QWizardPage
 {
     Q_OBJECT
 public:
-    GeneralGeometrySettings(QWizard *parent);
+    PageGeneralGeometrySettings(QWizard *parent);
     void ConfigSimBox(void);
 
     bool validatePage();
@@ -20,8 +20,8 @@ public:
     void ReadFromSimScriptBuffer(void);
     QString text_save_to_simscript;
 
-    QGroupBox *group_box_sim_box;
-    QGridLayout *grid_sim_box;
+    QGroupBox *group_box_sim_par;
+    QGridLayout *grid_sim_par;
 
     QComboBox *combo_unit;
 
@@ -43,4 +43,4 @@ public:
                                     else if(!QString::compare("um", combo_unit->currentText())) return "1e-6";}
 };
 
-#endif // GENERAL_GEOMETRY_SETTINGS_H
+#endif // PAGE_GENERAL_GEOMETRY_SETTINGS_H

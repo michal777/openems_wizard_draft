@@ -1,6 +1,6 @@
 #include "page_start.h"
 
-PageStart::PageStart(QWizard *parent)
+PageStart::PageStart(QWizard *parent): QWizardPage(parent)
 {
     QLabel *StaticText1 = new QLabel("path to ...openEMS/matlab", this);
     StaticText1->setGeometry(QRect(QPoint(22, 20), QSize(180, 30)));
@@ -52,7 +52,7 @@ confirm_recursive_rmdir(0);
 rmdir(sim_path, 's');
 mkdir(sim_path);
 */
-//    qDebug("%s", qUtf8Printable(*text_save_to_simscript));
+    qDebug("%s", qUtf8Printable(text_save_to_simscript));
 }
 
 void PageStart::ReadFromSimScriptBuffer(void)
