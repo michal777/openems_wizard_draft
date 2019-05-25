@@ -1,5 +1,5 @@
-#ifndef PAGE_GEOMETRY_H
-#define PAGE_GEOMETRY_H
+#ifndef PAGEGEOMETRY_H
+#define PAGEGEOMETRY_H
 
 #include <QWizard>
 #include <QLineEdit>
@@ -22,4 +22,4 @@ public:
 
 };
 
-#endif // PAGE_GEOMETRY_H
+#endif // PAGEGEOMETRY_H

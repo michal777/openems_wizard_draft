@@ -1,19 +1,9 @@
-#include "page_basic_sim_setup.h"
+#include "PageBasicSimSetup.h"
 #include <QDebug>
 
 PageBasicSimSetup::PageBasicSimSetup(QWizard *parent): QWizardPage(parent)
 {
-    QVBoxLayout *layout_page_basic_sim_setup = new QVBoxLayout(this);
     ConfigSimPar();
-    layout_page_basic_sim_setup->addWidget(group_box_sim_par);
-    setLayout(layout_page_basic_sim_setup);
-
-    QPushButton *button_settings_fdtd = new QPushButton("FDTD settings", this);
-    connect(button_settings_fdtd, SIGNAL(released()), this, SLOT(OnFDTDSettings()));
-    layout_page_basic_sim_setup->addWidget(button_settings_fdtd);
-
-    setLayout(layout_page_basic_sim_setup);
-
     ConfigFDTDSettings();
 }
 
@@ -35,12 +25,10 @@ void PageBasicSimSetup::SaveToSimScriptBuffer(void)
     qDebug("%s", qUtf8Printable(text_save_to_simscript));
 }
 
-
 void PageBasicSimSetup::ReadFromSimScriptBuffer(void)
 {
 
 }
-
 
 void PageBasicSimSetup::ConfigSimPar(void)
 {
@@ -59,15 +47,18 @@ void PageBasicSimSetup::ConfigSimPar(void)
     combo_frequnit->addItem("kHz");
     combo_frequnit->addItem("Hz");
 
+    QPushButton *button_settings_fdtd = new QPushButton("FDTD settings", this);
+    connect(button_settings_fdtd, SIGNAL(released()), this, SLOT(OnFDTDSettings()));
+
     grid_sim_par->addWidget(statictext_freq, 1, 0, Qt::AlignRight);
     grid_sim_par->addWidget(text_fmin, 1, 1, Qt::AlignLeft);
     grid_sim_par->addWidget(statictext_freqhypen, 1, 2, Qt::AlignLeft);
     grid_sim_par->addWidget(text_fmax, 1, 3, Qt::AlignLeft);
     grid_sim_par->addWidget(combo_frequnit, 1, 4, Qt::AlignLeft);
+    grid_sim_par->addWidget(button_settings_fdtd, 2, 1, 1, 2, Qt::AlignLeft);
 
     group_box_sim_par->setLayout(grid_sim_par);
 }
-
 
 void PageBasicSimSetup::ConfigFDTDSettings(void)
 {
@@ -122,9 +113,6 @@ void PageBasicSimSetup::ConfigFDTDSettings(void)
 
     grid_fdtd_par->addWidget(button_close_settings_fdtd, 10, 1, Qt::AlignRight);
 }
-
-
-
 
 QString PageBasicSimSetup::ReturnConfigFDTD(void)
 {

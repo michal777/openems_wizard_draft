@@ -1,7 +1,7 @@
-#include "mainwindow.h"
-#include "wizard.h"
+#include "StartWizardWindow.h"
+#include "WizardInit.h"
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
+StartWizardWindow::StartWizardWindow(QWidget *parent): QMainWindow(parent)
 {
     this->setGeometry(QRect(QPoint(50, 50), QSize(800, 500)));
     QPushButton *button_run_wizard = new QPushButton("Run the wizard", this);
@@ -21,34 +21,34 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
     connect(button_set_workflowfile_path, SIGNAL(released()), this, SLOT(OnSetWorkflowFilePath()));
 }
 
-void MainWindow::LoadSettings()
+void StartWizardWindow::LoadSettings()
 {
     QSettings main_settings(file_main_settings, QSettings::NativeFormat);
     TextWorkflowFilePath->setText(main_settings.value("last_selected_workflow", "").toString());
 }
 
-void MainWindow::SaveSettings()
+void StartWizardWindow::SaveSettings()
 {
     QSettings main_settings(file_main_settings, QSettings::NativeFormat);
     main_settings.setValue("last_selected_workflow", TextWorkflowFilePath->text());
 }
 
 
-MainWindow::~MainWindow()
+StartWizardWindow::~StartWizardWindow()
 {
 }
 
-void MainWindow::OnSetWorkflowFilePath()
+void StartWizardWindow::OnSetWorkflowFilePath()
 {
     QFileDialog *file_dialog = new QFileDialog(this);
     TextWorkflowFilePath->setText(file_dialog->getOpenFileName(this, ("Open File"), ".", ("workflow file (*.wff_oems)")));
 }
 
-void MainWindow::OnRunWizard()
+void StartWizardWindow::OnRunWizard()
 {
     SaveSettings();
     workflowfile = new QFile(TextWorkflowFilePath->text(), this);
     workflowfile->open(QIODevice::ReadOnly);
-    MyWizard *wizard = new MyWizard(this, workflowfile);
+    WizardInit *wizard = new WizardInit(this, workflowfile);
     wizard->exec();
 }

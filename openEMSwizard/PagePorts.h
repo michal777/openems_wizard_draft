@@ -1,5 +1,5 @@
-#ifndef PAGE_PORTS_H
-#define PAGE_PORTS_H
+#ifndef PAGEPORTS_H
+#define PAGEPORTS_H
 
 #include <QWizard>
 #include <QLineEdit>
@@ -23,4 +23,4 @@ public:
 };
 
 
-#endif // PAGE_PORTS_H
+#endif // PAGEPORTS_H

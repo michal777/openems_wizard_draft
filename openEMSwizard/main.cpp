@@ -1,10 +1,12 @@
-#include "mainwindow.h"
+#include "WizardInit.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow *main_window = new MainWindow;
-    main_window->show();
+
+    WizardInit *wizard = new WizardInit(NULL);
+    wizard->show();
+
     return a.exec();
 }

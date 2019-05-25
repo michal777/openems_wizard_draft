@@ -1,4 +1,4 @@
-#include "wizard.h"
+#include "Wizard.h"
 #include "page_start.h"
 #include "page_basic_sim_setup.h"
 #include "page_general_geometry_settings.h"

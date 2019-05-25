@@ -1,5 +1,5 @@
-#ifndef PAGE_RESULTS_H
-#define PAGE_RESULTS_H
+#ifndef PAGERESULTSSPARAM_H
+#define PAGERESULTS_H
 
 #include <QWizard>
 #include <QLineEdit>
@@ -8,7 +8,7 @@
 #include <QFileDialog>
 
 
-class PageResults : public QWizardPage
+class PageResultsSparam : public QWizardPage
 {
     Q_OBJECT
 public:
@@ -22,4 +22,4 @@ public:
 };
 
 
-#endif // PAGE_RESULTS_H
+#endif // PAGERESULTS_H

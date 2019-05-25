@@ -1,5 +1,5 @@
-#ifndef PAGE_GENERAL_GEOMETRY_SETTINGS_H
-#define PAGE_GENERAL_GEOMETRY_SETTINGS_H
+#ifndef PAGEGENERALGEOMETRYSETTINGS_H
+#define PAGEGENERALGEOMETRYSETTINGS_H
 
 #include <QWizard>
 #include <QLineEdit>
@@ -43,4 +43,4 @@ public:
                                     else if(!QString::compare("um", combo_unit->currentText())) return "1e-6";}
 };
 
-#endif // PAGE_GENERAL_GEOMETRY_SETTINGS_H
+#endif // PAGEGENERALGEOMETRYSETTINGS_H

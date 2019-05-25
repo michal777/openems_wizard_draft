@@ -1,13 +1,10 @@
-#include "page_general_geometry_settings.h"
+#include "PageGeneralGeometrySettings.h"
 #include <QDebug>
 
 
 PageGeneralGeometrySettings::PageGeneralGeometrySettings(QWizard *parent): QWizardPage(parent)
 {
-    QVBoxLayout *layout_page_general_geom_setup = new QVBoxLayout(this);
     ConfigSimBox();
-    layout_page_general_geom_setup->addWidget(group_box_sim_par);
-    setLayout(layout_page_general_geom_setup);
 }
 
 
@@ -104,29 +101,29 @@ void PageGeneralGeometrySettings::ConfigSimBox(void)
     combo_bb_pz->addItem("PEC");
     combo_bb_pz->addItem("MUR");
 
-//    grid_sim_par->addWidget(statictext_unit, 0, 0, Qt::AlignRight);
-//    grid_sim_par->addWidget(combo_unit, 0, 1, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_unit, 0, 0, Qt::AlignRight);
+    grid_sim_par->addWidget(combo_unit, 0, 1, Qt::AlignLeft);
 
-    grid_sim_par->addWidget(statictext_nx, 0, 0, Qt::AlignLeft);
-    grid_sim_par->addWidget(text_bb_nx, 0, 1, Qt::AlignLeft);
-    grid_sim_par->addWidget(combo_bb_nx, 0, 2, Qt::AlignLeft);
-    grid_sim_par->addWidget(statictext_px, 0, 4, Qt::AlignLeft);
-    grid_sim_par->addWidget(text_bb_px, 0, 5, Qt::AlignLeft);
-    grid_sim_par->addWidget(combo_bb_px, 0, 6, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_nx, 2, 0, Qt::AlignLeft);
+    grid_sim_par->addWidget(text_bb_nx, 2, 1, Qt::AlignLeft);
+    grid_sim_par->addWidget(combo_bb_nx, 2, 2, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_px, 2, 4, Qt::AlignLeft);
+    grid_sim_par->addWidget(text_bb_px, 2, 5, Qt::AlignLeft);
+    grid_sim_par->addWidget(combo_bb_px, 2, 6, Qt::AlignLeft);
 
-    grid_sim_par->addWidget(statictext_ny, 1, 0, Qt::AlignLeft);
-    grid_sim_par->addWidget(text_bb_ny, 1, 1, Qt::AlignLeft);
-    grid_sim_par->addWidget(combo_bb_ny, 1, 2, Qt::AlignLeft);
-    grid_sim_par->addWidget(statictext_py, 1, 4, Qt::AlignLeft);
-    grid_sim_par->addWidget(text_bb_py, 1, 5, Qt::AlignLeft);
-    grid_sim_par->addWidget(combo_bb_py, 1, 6, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_ny, 3, 0, Qt::AlignLeft);
+    grid_sim_par->addWidget(text_bb_ny, 3, 1, Qt::AlignLeft);
+    grid_sim_par->addWidget(combo_bb_ny, 3, 2, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_py, 3, 4, Qt::AlignLeft);
+    grid_sim_par->addWidget(text_bb_py, 3, 5, Qt::AlignLeft);
+    grid_sim_par->addWidget(combo_bb_py, 3, 6, Qt::AlignLeft);
 
-    grid_sim_par->addWidget(statictext_nz, 2, 0, Qt::AlignLeft);
-    grid_sim_par->addWidget(text_bb_nz, 2, 1, Qt::AlignLeft);
-    grid_sim_par->addWidget(combo_bb_nz, 2, 2, Qt::AlignLeft);
-    grid_sim_par->addWidget(statictext_pz, 2, 4, Qt::AlignLeft);
-    grid_sim_par->addWidget(text_bb_pz, 2, 5, Qt::AlignLeft);
-    grid_sim_par->addWidget(combo_bb_pz, 2, 6, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_nz, 4, 0, Qt::AlignLeft);
+    grid_sim_par->addWidget(text_bb_nz, 4, 1, Qt::AlignLeft);
+    grid_sim_par->addWidget(combo_bb_nz, 4, 2, Qt::AlignLeft);
+    grid_sim_par->addWidget(statictext_pz, 4, 4, Qt::AlignLeft);
+    grid_sim_par->addWidget(text_bb_pz, 4, 5, Qt::AlignLeft);
+    grid_sim_par->addWidget(combo_bb_pz, 4, 6, Qt::AlignLeft);
 
     group_box_sim_par->setLayout(grid_sim_par);
 }

@@ -25,21 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    wizard.cpp \
-    page_start.cpp \
-    page_basic_sim_setup.cpp \
-    page_general_geometry_settings.cpp \
-    page_geometry.cpp \
-    page_ports.cpp \
-    page_results.cpp
+    WizardInit.cpp \
+    PageStart.cpp \
+    PageResultsSparam.cpp \
+    PagePorts.cpp \
+    PageGeometry.cpp \
+    PageGeneralGeometrySettings.cpp \
+    PageBasicSimSetup.cpp
 
 HEADERS += \
-        mainwindow.h \
-    wizard.h \
-    page_start.h \
-    page_basic_sim_setup.h \
-    page_general_geometry_settings.h \
-    page_geometry.h \
-    page_ports.h \
-    page_results.h
+    WizardInit.h \
+    PageStart.h \
+    PageResultsSparam.h \
+    PagePorts.h \
+    PageGeometry.h \
+    PageGeneralGeometrySettings.h \
+    PageBasicSimSetup.h

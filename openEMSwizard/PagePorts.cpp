@@ -1,7 +1,9 @@
-#include "page_ports.h"
+#include "PagePorts.h"
 
 PagePorts::PagePorts(QWizard *parent): QWizardPage(parent)
 {
+    QLabel *statictext_TODO = new QLabel("Configuration of ports and excitation TO BE DONE", this);
+    statictext_TODO->setGeometry(QRect(QPoint(22, 20), QSize(500, 30)));
 
 }
 

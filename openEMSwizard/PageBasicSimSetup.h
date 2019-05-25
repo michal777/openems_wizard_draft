@@ -1,5 +1,5 @@
-#ifndef PAGE_BASIC_SIM_SETUP_H
-#define PAGE_BASIC_SIM_SETUP_H
+#ifndef PAGEBASICSIMSETUP_H
+#define PAGEBASICSIMSETUP_H
 
 #include <QWizard>
 #include <QLineEdit>
@@ -53,4 +53,4 @@ public slots:
     void OnCloseFDTDSettings();
 };
 
-#endif // PAGE_BASIC_SIM_SETUP_H
+#endif // PAGEBASICSIMSETUP_H

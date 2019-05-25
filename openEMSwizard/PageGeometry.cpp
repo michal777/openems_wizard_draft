@@ -1,7 +1,9 @@
-#include "page_geometry.h"
+#include "PageGeometry.h"
 
 PageGeometry::PageGeometry(QWizard *parent): QWizardPage(parent)
 {
+    QLabel *statictext_TODO = new QLabel("Configuration of geometry (placing primitives, stl import, hyperlynx import) TO BE DONE", this);
+    statictext_TODO->setGeometry(QRect(QPoint(22, 20), QSize(500, 30)));
 
 }
 

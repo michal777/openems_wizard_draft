@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef StartWizardWindow_H
+#define StartWizardWindow_H
 
 #include <QMainWindow>
 #include <QFile>
@@ -10,11 +10,11 @@
 #include <QWizard>
 #include <QSettings>
 
-class MainWindow : public QMainWindow
+class StartWizardWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    MainWindow(QWidget *parent = 0);
+    StartWizardWindow(QWidget *parent = 0);
     QFile *workflowfile;
     QLineEdit *TextWorkflowFilePath;
 
@@ -22,10 +22,10 @@ public:
     void LoadSettings();
     QString file_main_settings;
 
-    ~MainWindow();
+    ~StartWizardWindow();
 public slots:
     void OnSetWorkflowFilePath();
     void OnRunWizard();
 };
 
-#endif // MAINWINDOW_H
+#endif // StartWizardWindow_H
