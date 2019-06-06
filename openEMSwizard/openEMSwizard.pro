@@ -5,6 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += script
+ QT += qml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,7 +33,9 @@ SOURCES += \
     PagePorts.cpp \
     PageGeometry.cpp \
     PageGeneralGeometrySettings.cpp \
-    PageBasicSimSetup.cpp
+    PageBasicSimSetup.cpp \
+    VariablesEditor.cpp \
+    PageMaterials.cpp
 
 HEADERS += \
     WizardInit.h \
@@ -40,4 +44,6 @@ HEADERS += \
     PagePorts.h \
     PageGeometry.h \
     PageGeneralGeometrySettings.h \
-    PageBasicSimSetup.h
+    PageBasicSimSetup.h \
+    VariablesEditor.h \
+    PageMaterials.h

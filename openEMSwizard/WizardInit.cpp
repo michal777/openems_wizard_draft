@@ -5,7 +5,8 @@
 #include "PageGeometry.h"
 #include "PagePorts.h"
 #include "PageResultsSparam.h"
-
+#include "PageMaterials.h"
+#include "VariablesEditor.h"
 
 WizardInit::WizardInit(QMainWindow *parent): QWizard(parent)
 {
@@ -14,6 +15,8 @@ WizardInit::WizardInit(QMainWindow *parent): QWizard(parent)
     StartWizardWindow();    //dialog with workflow file selection will appear, when selected the listed pages are added to this wizard
     for(workflowfile->seek(0); !workflowfile->atEnd();)
         this->addPage(ReturnWorkflowStep(workflowfile->readLine()));
+    VariablesEditor *var_edit = new VariablesEditor(this);
+    var_edit->show();
 }
 
 QWizardPage *WizardInit::ReturnWorkflowStep(QString workflowname)
@@ -24,6 +27,8 @@ QWizardPage *WizardInit::ReturnWorkflowStep(QString workflowname)
         return new PageBasicSimSetup(this);
     else if(!workflowname.compare("General geometry settings\n"))
         return new PageGeneralGeometrySettings(this);
+    else if(!workflowname.compare("Materials\n"))
+        return new PageMaterials(this);
     else if(!workflowname.compare("Geometry\n"))
         return new PageGeometry(this);
     else if(!workflowname.compare("Ports\n"))
