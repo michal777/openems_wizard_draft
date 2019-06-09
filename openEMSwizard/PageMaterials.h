@@ -12,6 +12,8 @@
 #include <QListWidget>
 #include <QVector>
 #include <QGroupBox>
+#include <QRadioButton>
+
 
 struct material_parameters_struct
 {
@@ -45,8 +47,11 @@ public:
     void UploadMaterialsToViewer(void);
 
 
+
+    QRadioButton *rad_but_type_material;
+    QRadioButton *rad_but_type_metal;
     QLineEdit *name;
-    QLineEdit *type;
+    QString type;
     QLineEdit *epsilon;
     QLineEdit *mue;
     QLineEdit *kappa;
@@ -55,9 +60,10 @@ public:
     QLineEdit *thickness;
 
 public slots:
-    void OnAddMaterial(void);
+    void OnAddOrChangeMaterial(void);
+    void OnRemoveMaterial(void);
     void OnGetSelectedMaterial(QListWidgetItem* item);
-
+    void OnSetMaterialType(void);
 
 };
 

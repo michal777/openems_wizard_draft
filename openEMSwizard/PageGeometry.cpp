@@ -1,10 +1,29 @@
-#include "PageGeometry.h"
+﻿#include "PageGeometry.h"
 
 PageGeometry::PageGeometry(QWizard *parent): QWizardPage(parent)
 {
-    QLabel *statictext_TODO = new QLabel("Configuration of geometry (placing primitives, stl import, hyperlynx import) TO BE DONE", this);
-    statictext_TODO->setGeometry(QRect(QPoint(22, 20), QSize(500, 30)));
+    QVector<shape_parameters *> *shapes_param_list = new QVector<shape_parameters *>;
+    shapes_param_list_ptr = shapes_param_list;
 
+    ShapeSelectLayout();
+    ShapeListLayout();
+
+    ShapeBoxSettings();
+    ShapeCylinderSettings();
+
+    stackedLayout = new QStackedLayout;
+    stackedLayout->addWidget(groupbox_box_settings);
+    stackedLayout->addWidget(groupbox_cylinder_settings);
+
+
+
+    main_layout_shapes = new QHBoxLayout;
+    main_layout_shapes->addWidget(shape_select_groupbox);
+    main_layout_shapes->addLayout(stackedLayout);
+    main_layout_shapes->addWidget(shape_list_groupbox);
+
+
+    setLayout(main_layout_shapes);
 }
 
 
@@ -29,4 +48,322 @@ void PageGeometry::SaveToSimScriptBuffer(void)
 void PageGeometry::ReadFromSimScriptBuffer(void)
 {
 
+}
+
+
+void PageGeometry::UploadShapesToViewer(void)
+{
+
+}
+
+
+void PageGeometry::ShapeSelectLayout(void)
+{
+    shape_select_groupbox = new QGroupBox(tr("Select shape type"));
+    QGridLayout *grid_layout_select_shape = new QGridLayout;
+
+    rad_but_type_box = new QRadioButton("Box", this);
+    rad_but_type_sphere = new QRadioButton("Sphere", this);
+    rad_but_type_spherical_shell = new QRadioButton("Spherical Shell", this);
+    rad_but_type_cylinder = new QRadioButton("Cylinder", this);
+    rad_but_type_cylindrical_shell = new QRadioButton("Cylindrical Shell", this);
+    rad_but_type_curve = new QRadioButton("Curve", this);
+    rad_but_type_wire = new QRadioButton("Wire", this);
+    rad_but_type_polygon = new QRadioButton("Polygon", this);
+    rad_but_type_extruded_polygon = new QRadioButton("Extruded polygon", this);
+    rad_but_type_rotational_solid = new QRadioButton("Rotational Solid", this);
+    rad_but_type_polyhedron = new QRadioButton("Polyhedron", this);
+    connect(rad_but_type_box, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_sphere, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_spherical_shell, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_cylinder, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_cylindrical_shell, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_curve, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_wire, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_polygon, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_extruded_polygon, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_rotational_solid, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    connect(rad_but_type_polyhedron, SIGNAL(clicked()), this, SLOT(OnSetShapeTypeLayout()));
+    rad_but_type_box->setChecked(true);
+
+    grid_layout_select_shape->addWidget(rad_but_type_box, 0, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_sphere, 1, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_spherical_shell, 2, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_cylinder, 3, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_cylindrical_shell, 4, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_curve, 5, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_wire, 6, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_polygon, 7, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_extruded_polygon, 8, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_rotational_solid, 9, 0, Qt::AlignLeft);
+    grid_layout_select_shape->addWidget(rad_but_type_polyhedron, 10, 0, Qt::AlignLeft);
+
+    shape_select_groupbox->setLayout(grid_layout_select_shape);
+}
+
+
+void PageGeometry::ShapeListLayout(void)
+{
+    shape_list_groupbox = new QGroupBox(tr("Shapes list"));
+    QGridLayout *grid_layout_shape_list = new QGridLayout;
+
+    shapes_list_widget = new QListWidget(this);
+    connect(shapes_list_widget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(OnGetSelectedShape(QListWidgetItem*)));
+
+    QPushButton *button_add_edit_shape = new QPushButton("New/Edit", this);
+    connect(button_add_edit_shape, SIGNAL(released()), this, SLOT(OnAddOrChangeShape()));
+    QPushButton *button_remove_shape = new QPushButton("Remove", this);
+    connect(button_remove_shape, SIGNAL(released()), this, SLOT(OnRemoveShape()));
+
+    grid_layout_shape_list->addWidget(button_add_edit_shape, 8, 0, Qt::AlignLeft);
+    grid_layout_shape_list->addWidget(button_remove_shape, 8, 1, Qt::AlignLeft);
+    grid_layout_shape_list->addWidget(shapes_list_widget, 0, 0, 7, 2, Qt::AlignLeft);
+
+    shape_list_groupbox->setLayout(grid_layout_shape_list);
+}
+
+
+void PageGeometry::ShapeBoxSettings(void)
+{
+    groupbox_box_settings = new QGroupBox(tr("Box settings"));
+    QGridLayout *grid_layout_shape_box = new QGridLayout;
+
+    QLabel *sh_box_statictext_name = new QLabel("name", this);
+    sh_box_name = new QLineEdit(this);
+    QLabel *sh_box_statictext_priority = new QLabel("priority", this);
+    sh_box_priority = new QLineEdit(this);
+    QLabel *sh_box_statictext_xstart = new QLabel("x start", this);
+    sh_box_x_coord_1 = new QLineEdit(this);
+    QLabel *sh_box_statictext_xstop = new QLabel("x stop", this);
+    sh_box_x_coord_2 = new QLineEdit(this);
+    QLabel *sh_box_statictext_ystart = new QLabel("y start", this);
+    sh_box_y_coord_1 = new QLineEdit(this);
+    QLabel *sh_box_statictext_ystop = new QLabel("y stop", this);
+    sh_box_y_coord_2 = new QLineEdit(this);
+    QLabel *sh_box_statictext_zstart = new QLabel("z start", this);
+    sh_box_z_coord_1 = new QLineEdit(this);
+    QLabel *sh_box_statictext_zstop = new QLabel("z stop", this);
+    sh_box_z_coord_2 = new QLineEdit(this);
+    QLabel *sh_box_statictext_placeholder = new QLabel("", this);
+
+    connect(sh_box_name, SIGNAL(editingFinished()), this, SLOT(OnSetShapeTypeLayout()));
+
+    grid_layout_shape_box->addWidget(sh_box_statictext_name, 0, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_priority, 1, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_xstart, 2, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_xstop, 3, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_ystart, 4, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_ystop, 5, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_zstart, 6, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_zstop, 7, 0, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_statictext_placeholder, 8, 0, Qt::AlignLeft);
+
+    grid_layout_shape_box->addWidget(sh_box_name, 0, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_priority, 1, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_x_coord_1, 2, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_x_coord_2, 3, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_y_coord_1, 4, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_y_coord_2, 5, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_z_coord_1, 6, 1, Qt::AlignLeft);
+    grid_layout_shape_box->addWidget(sh_box_z_coord_2, 7, 1, Qt::AlignLeft);
+
+    groupbox_box_settings->setLayout(grid_layout_shape_box);
+}
+
+void PageGeometry::ShapeCylinderSettings(void)
+{
+    groupbox_cylinder_settings = new QGroupBox(tr("Cylinder settings"));
+    QGridLayout *grid_layout_shape_cylinder = new QGridLayout;
+
+    QLabel *sh_cylinder_statictext_name = new QLabel("name", this);
+    sh_cylinder_name = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_priority = new QLabel("priority", this);
+    sh_cylinder_priority = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_xstart = new QLabel("x start", this);
+    sh_cylinder_x_coord_1 = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_xstop = new QLabel("x stop", this);
+    sh_cylinder_x_coord_2 = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_ystart = new QLabel("y start", this);
+    sh_cylinder_y_coord_1 = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_ystop = new QLabel("y stop", this);
+    sh_cylinder_y_coord_2 = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_zstart = new QLabel("z start", this);
+    sh_cylinder_z_coord_1 = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_zstop = new QLabel("z stop", this);
+    sh_cylinder_z_coord_2 = new QLineEdit(this);
+    QLabel *sh_cylinder_statictext_radius = new QLabel("radius", this);
+    sh_cylinder_radius = new QLineEdit(this);
+
+    connect(sh_cylinder_name, SIGNAL(editingFinished()), this, SLOT(OnSetShapeTypeLayout()));
+
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_name, 0, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_priority, 1, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_xstart, 2, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_xstop, 3, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_ystart, 4, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_ystop, 5, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_zstart, 6, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_zstop, 7, 0, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_statictext_radius, 8, 0, Qt::AlignLeft);
+
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_name, 0, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_priority, 1, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_x_coord_1, 2, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_x_coord_2, 3, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_y_coord_1, 4, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_y_coord_2, 5, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_z_coord_1, 6, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_z_coord_2, 7, 1, Qt::AlignLeft);
+    grid_layout_shape_cylinder->addWidget(sh_cylinder_radius, 8, 1, Qt::AlignLeft);
+
+
+    groupbox_cylinder_settings->setLayout(grid_layout_shape_cylinder);
+}
+
+void PageGeometry::OnAddOrChangeShape(void)
+{
+    if(rad_but_type_box->isChecked())
+    {
+        shape_box_parameters *shape_tmp_ptr = new shape_box_parameters;
+        shape_tmp_ptr->name = sh_box_name->text();
+        shape_tmp_ptr->type = "box";
+        shape_tmp_ptr->priority = sh_box_priority->text();
+        shape_tmp_ptr->x_coord_1 = sh_box_x_coord_1->text();
+        shape_tmp_ptr->x_coord_2 = sh_box_x_coord_2->text();
+        shape_tmp_ptr->y_coord_1 = sh_box_y_coord_1->text();
+        shape_tmp_ptr->y_coord_2 = sh_box_y_coord_2->text();
+        shape_tmp_ptr->z_coord_1 = sh_box_z_coord_1->text();
+        shape_tmp_ptr->z_coord_2 = sh_box_z_coord_2->text();
+
+        if(!shape_tmp_ptr->name.isEmpty())
+        {
+            if(shapes_param_list_ptr->empty())
+            {
+                shapes_param_list_ptr->push_back(shape_tmp_ptr);
+                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
+                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
+//                delete shape_tmp_ptr;
+            }
+            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name != shape_tmp_ptr->name)
+            {
+                shapes_param_list_ptr->push_back(shape_tmp_ptr);
+                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
+                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
+//                delete shape_tmp_ptr;
+            }
+            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name == shape_tmp_ptr->name)
+            {
+                shapes_param_list_ptr->replace(shapes_list_widget->currentRow(), shape_tmp_ptr);
+//                delete shape_tmp_ptr;
+            }
+        }
+    }
+    else if(rad_but_type_cylinder->isChecked())
+    {
+        shape_cylinder_parameters *shape_tmp_ptr = new shape_cylinder_parameters;
+        shape_tmp_ptr->name = sh_cylinder_name->text();
+        shape_tmp_ptr->type = "cylinder";
+        shape_tmp_ptr->priority = sh_cylinder_priority->text();
+        shape_tmp_ptr->x_coord_1 = sh_cylinder_x_coord_1->text();
+        shape_tmp_ptr->x_coord_2 = sh_cylinder_x_coord_2->text();
+        shape_tmp_ptr->y_coord_1 = sh_cylinder_y_coord_1->text();
+        shape_tmp_ptr->y_coord_2 = sh_cylinder_y_coord_2->text();
+        shape_tmp_ptr->z_coord_1 = sh_cylinder_z_coord_1->text();
+        shape_tmp_ptr->z_coord_2 = sh_cylinder_z_coord_2->text();
+
+        if(!shape_tmp_ptr->name.isEmpty())
+        {
+            if(shapes_param_list_ptr->empty())
+            {
+                shapes_param_list_ptr->push_back(shape_tmp_ptr);
+                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
+                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
+//                delete shape_tmp_ptr;
+            }
+            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name != shape_tmp_ptr->name)
+            {
+                shapes_param_list_ptr->push_back(shape_tmp_ptr);
+                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
+                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
+//                delete shape_tmp_ptr;
+            }
+            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name == shape_tmp_ptr->name)
+            {
+                shapes_param_list_ptr->replace(shapes_list_widget->currentRow(), shape_tmp_ptr);
+//                delete shape_tmp_ptr;
+            }
+        }
+    }
+}
+
+
+
+void PageGeometry::OnRemoveShape(void)
+{
+    if(!shapes_param_list_ptr->empty())
+    {        
+        shape_parameters *shape_to_del = shapes_param_list_ptr->at(shapes_list_widget->currentRow());
+
+        shapes_param_list_ptr->remove(shapes_list_widget->currentRow());
+        shapes_list_widget->takeItem(shapes_list_widget->currentRow());
+
+        delete shape_to_del;    //TODO FIXME i dont know if it's the right way to delete shape item created by "new" in OnAddOrChangeShape
+    }
+}
+
+
+
+void PageGeometry::OnGetSelectedShape(QListWidgetItem* item)
+{
+    shape_parameters *shape_tmp_ptr;
+    shape_tmp_ptr = shapes_param_list_ptr->at(shapes_list_widget->currentRow());
+
+    if(!QString::compare(shape_tmp_ptr->type, "box"))
+    {
+        shape_box_parameters *shape_box_tmp = (shape_box_parameters *)(shape_tmp_ptr);
+        rad_but_type_box->setChecked(true);
+        sh_box_name->setText(shape_box_tmp->name);
+        sh_box_priority->setText(shape_box_tmp->priority);
+        sh_box_x_coord_1->setText(shape_box_tmp->x_coord_1);
+        sh_box_x_coord_2->setText(shape_box_tmp->x_coord_2);
+        sh_box_y_coord_1->setText(shape_box_tmp->y_coord_1);
+        sh_box_y_coord_2->setText(shape_box_tmp->y_coord_2);
+        sh_box_z_coord_1->setText(shape_box_tmp->z_coord_1);
+        sh_box_z_coord_2->setText(shape_box_tmp->z_coord_2);
+    }
+    else if(!QString::compare(shape_tmp_ptr->type, "cylinder"))
+    {
+        shape_cylinder_parameters *shape_cylinder_tmp = (shape_cylinder_parameters *)(shape_tmp_ptr);
+        rad_but_type_cylinder->setChecked(true);
+        sh_cylinder_name->setText(shape_cylinder_tmp->name);
+        sh_cylinder_priority->setText(shape_cylinder_tmp->priority);
+        sh_cylinder_x_coord_1->setText(shape_cylinder_tmp->x_coord_1);
+        sh_cylinder_x_coord_2->setText(shape_cylinder_tmp->x_coord_2);
+        sh_cylinder_y_coord_1->setText(shape_cylinder_tmp->y_coord_1);
+        sh_cylinder_y_coord_2->setText(shape_cylinder_tmp->y_coord_2);
+        sh_cylinder_z_coord_1->setText(shape_cylinder_tmp->z_coord_1);
+        sh_cylinder_z_coord_2->setText(shape_cylinder_tmp->z_coord_2);
+        sh_cylinder_radius->setText(shape_cylinder_tmp->radius);
+    }
+
+    OnSetShapeTypeLayout();
+}
+
+
+void PageGeometry::OnSetShapeTypeLayout(void)   //called to change layout according to selection of shape type and to select proper shape on the list (according to name, to prevent adding more items with the same name)
+{
+    if(rad_but_type_box->isChecked())
+    {
+        stackedLayout->setCurrentIndex(0);
+        for(int i = 0 ; i < shapes_list_widget->count(); ++i)
+            if(shapes_list_widget->item(i)->text() == sh_box_name->text())
+                shapes_list_widget->setCurrentRow(i);
+    }
+    else if(rad_but_type_cylinder->isChecked())
+    {
+        stackedLayout->setCurrentIndex(1);
+        for(int i = 0 ; i < shapes_list_widget->count(); ++i)
+            if(shapes_list_widget->item(i)->text() == sh_cylinder_name->text())
+                shapes_list_widget->setCurrentRow(i);
+    }
 }

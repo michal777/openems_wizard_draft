@@ -522,6 +522,7 @@ WizardInit.o: ../openEMSwizard/WizardInit.cpp ../openEMSwizard/WizardInit.h \
 		../openEMSwizard/PageGeometry.h \
 		../openEMSwizard/PagePorts.h \
 		../openEMSwizard/PageResultsSparam.h \
+		../openEMSwizard/PageMaterials.h \
 		../openEMSwizard/VariablesEditor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WizardInit.o ../openEMSwizard/WizardInit.cpp
 
