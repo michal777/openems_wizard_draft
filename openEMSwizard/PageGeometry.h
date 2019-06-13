@@ -2,6 +2,7 @@
 #define PAGEGEOMETRY_H
 
 #include <QWizard>
+#include <QWizardPage>
 #include <QLineEdit>
 #include <QLabel>
 #include <QString>
@@ -17,6 +18,8 @@
 #include <QHBoxLayout>
 #include <QStackedLayout>
 #include <QDebug>
+#include <QComboBox>
+#include <QStringList>
 
 
 class shape_parameters
@@ -25,6 +28,7 @@ public:
     QString name;
     QString type;
     QString priority;
+    QString material;
 };
 
 class shape_box_parameters : public shape_parameters
@@ -91,6 +95,8 @@ public:
     void ShapeBoxSettings(void);
     void ShapeCylinderSettings(void);
 
+    virtual void initializePage(void);
+
 
     QRadioButton *rad_but_type_box;
     QRadioButton *rad_but_type_sphere;
@@ -113,9 +119,11 @@ public:
     QLineEdit *sh_box_y_coord_2;
     QLineEdit *sh_box_z_coord_1;
     QLineEdit *sh_box_z_coord_2;
+    QComboBox *sh_box_material;
 
     QLineEdit *sh_cylinder_name;
     QLineEdit *sh_cylinder_priority;
+    QComboBox *sh_cylinder_material;
     QLineEdit *sh_cylinder_x_coord_1;
     QLineEdit *sh_cylinder_x_coord_2;
     QLineEdit *sh_cylinder_y_coord_1;
