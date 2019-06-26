@@ -473,7 +473,8 @@ moc_PagePorts.cpp: ../openEMSwizard/PagePorts.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtScript -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/PagePorts.h -o moc_PagePorts.cpp
 
-moc_PageGeometry.cpp: ../openEMSwizard/PageGeometry.h \
+moc_PageGeometry.cpp: ../openEMSwizard/VariablesEditor.h \
+		../openEMSwizard/PageGeometry.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michal/cpp_projects/openems_wizard_draft/openEMSwizard -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtScript -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../openEMSwizard/PageGeometry.h -o moc_PageGeometry.cpp
@@ -520,10 +521,10 @@ WizardInit.o: ../openEMSwizard/WizardInit.cpp ../openEMSwizard/WizardInit.h \
 		../openEMSwizard/PageBasicSimSetup.h \
 		../openEMSwizard/PageGeneralGeometrySettings.h \
 		../openEMSwizard/PageGeometry.h \
+		../openEMSwizard/VariablesEditor.h \
 		../openEMSwizard/PagePorts.h \
 		../openEMSwizard/PageResultsSparam.h \
-		../openEMSwizard/PageMaterials.h \
-		../openEMSwizard/VariablesEditor.h
+		../openEMSwizard/PageMaterials.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WizardInit.o ../openEMSwizard/WizardInit.cpp
 
 PageStart.o: ../openEMSwizard/PageStart.cpp ../openEMSwizard/PageStart.h \
@@ -536,7 +537,8 @@ PageResultsSparam.o: ../openEMSwizard/PageResultsSparam.cpp ../openEMSwizard/Pag
 PagePorts.o: ../openEMSwizard/PagePorts.cpp ../openEMSwizard/PagePorts.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PagePorts.o ../openEMSwizard/PagePorts.cpp
 
-PageGeometry.o: ../openEMSwizard/PageGeometry.cpp ../openEMSwizard/PageGeometry.h
+PageGeometry.o: ../openEMSwizard/PageGeometry.cpp ../openEMSwizard/PageGeometry.h \
+		../openEMSwizard/VariablesEditor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PageGeometry.o ../openEMSwizard/PageGeometry.cpp
 
 PageGeneralGeometrySettings.o: ../openEMSwizard/PageGeneralGeometrySettings.cpp ../openEMSwizard/PageGeneralGeometrySettings.h

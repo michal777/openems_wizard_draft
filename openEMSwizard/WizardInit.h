@@ -8,13 +8,15 @@
 #include <QLineEdit>
 #include <QDialog>
 #include <QSettings>
+#include <QTableWidget>
+#include "VariablesEditor.h"
 
 class WizardInit : public QWizard
 {
     Q_OBJECT
 public:
     WizardInit(QMainWindow *parent);
-    QWizardPage *ReturnWorkflowStep(QString workflowname);
+    QWizardPage *ReturnWorkflowStep(QString workflowname, VariablesEditor *var_edit_main);
 
 
     void StartWizardWindow();
