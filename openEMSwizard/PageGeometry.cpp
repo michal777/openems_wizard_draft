@@ -1,4 +1,4 @@
-﻿#include "PageGeometry.h"
+#include "PageGeometry.h"
 
 PageGeometry::PageGeometry(QWizard *parent, VariablesEditor *var_edit_main): QWizardPage(parent)
 {
@@ -16,8 +16,6 @@ PageGeometry::PageGeometry(QWizard *parent, VariablesEditor *var_edit_main): QWi
     stackedLayout = new QStackedLayout;
     stackedLayout->addWidget(groupbox_box_settings);
     stackedLayout->addWidget(groupbox_cylinder_settings);
-
-
 
     main_layout_shapes = new QHBoxLayout;
     main_layout_shapes->addWidget(shape_select_groupbox);
@@ -259,7 +257,6 @@ void PageGeometry::ShapeBoxSettings(void)
     QLabel *sh_box_statictext_xstart = new QLabel("x start", this);
     sh_box_x_coord_1 = new QComboBox(this);
     sh_box_x_coord_1->setEditable(true);
-connect(var_edit, SIGNAL(VarEdit()), this, SLOT(UpdateVariableLists()));
     QLabel *sh_box_statictext_xstop = new QLabel("x stop", this);
     sh_box_x_coord_2 = new QLineEdit(this);
     QLabel *sh_box_statictext_ystart = new QLabel("y start", this);
@@ -353,11 +350,12 @@ void PageGeometry::ShapeCylinderSettings(void)
     groupbox_cylinder_settings->setLayout(grid_layout_shape_cylinder);
 }
 
-void PageGeometry::OnAddOrChangeShape(void)
+void PageGeometry::OnAddOrChangeShape(void) //adding new shape to list and viewer, changing them if shape with the same name already exist
 {
-    if(rad_but_type_box->isChecked())
+    shape_parameters *shape_ptr;
+    if(rad_but_type_box->isChecked())   //do this for selected type of shape
     {
-        shape_box_parameters *shape_tmp_ptr = new shape_box_parameters;
+        shape_box_parameters *shape_tmp_ptr = new shape_box_parameters; //object that will be filled with parameters from user input controls and then added to list (after casting)
         shape_tmp_ptr->name = sh_box_name->text();
         shape_tmp_ptr->type = "box";
         shape_tmp_ptr->priority = sh_box_priority->text();
@@ -385,26 +383,7 @@ void PageGeometry::OnAddOrChangeShape(void)
             else
                 shape_tmp_ptr->transf_order[i_tr] = "";
         }
-
-        if(!shape_tmp_ptr->name.isEmpty())
-        {
-            if(shapes_param_list_ptr->empty())
-            {
-                shapes_param_list_ptr->push_back(shape_tmp_ptr);
-                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
-                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
-            }
-            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name != shape_tmp_ptr->name)
-            {
-                shapes_param_list_ptr->push_back(shape_tmp_ptr);
-                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
-                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
-            }
-            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name == shape_tmp_ptr->name)
-            {
-                shapes_param_list_ptr->replace(shapes_list_widget->currentRow(), shape_tmp_ptr);
-            }
-        }
+        shape_ptr = shape_tmp_ptr;
     }
     else if(rad_but_type_cylinder->isChecked())
     {
@@ -420,25 +399,26 @@ void PageGeometry::OnAddOrChangeShape(void)
         shape_tmp_ptr->z_coord_2 = sh_cylinder_z_coord_2->text();
         shape_tmp_ptr->radius = sh_cylinder_radius->text();
         shape_tmp_ptr->material = sh_cylinder_material->currentText();
+        shape_ptr = shape_tmp_ptr;
+    }
 
-        if(!shape_tmp_ptr->name.isEmpty())
+
+    // Add the configured above primitive to the lists in the wizard and in the QCSXCAD:
+    if(!shape_ptr->name.isEmpty())
+    {
+        if(shapes_param_list_ptr->empty() || shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name != shape_ptr->name)
         {
-            if(shapes_param_list_ptr->empty())
-            {
-                shapes_param_list_ptr->push_back(shape_tmp_ptr);
-                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
-                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
-            }
-            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name != shape_tmp_ptr->name)
-            {
-                shapes_param_list_ptr->push_back(shape_tmp_ptr);
-                shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
-                shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
-            }
-            else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name == shape_tmp_ptr->name)
-            {
-                shapes_param_list_ptr->replace(shapes_list_widget->currentRow(), shape_tmp_ptr);
-            }
+            shapes_param_list_ptr->push_back(shape_ptr);
+            shapes_list_widget->addItem(shapes_param_list_ptr->at(shapes_param_list_ptr->size()-1)->name);
+            shapes_list_widget->setCurrentRow(shapes_list_widget->count()-1);
+//            int id_tmp = UploadShapesToViewer(true);
+//            shapes_param_list_ptr->at(shapes_list_widget->currentRow())->id = id_tmp;
+        }
+        else if(shapes_param_list_ptr->at(shapes_list_widget->currentRow())->name == shape_ptr->name)
+        {
+//            shape_ptr->id = shapes_param_list_ptr->at(shapes_list_widget->currentRow())->id;
+            shapes_param_list_ptr->replace(shapes_list_widget->currentRow(), shape_ptr);
+//            UploadShapesToViewer(false);
         }
     }
 }
@@ -448,12 +428,11 @@ void PageGeometry::OnAddOrChangeShape(void)
 void PageGeometry::OnRemoveShape(void)
 {
     if(!shapes_param_list_ptr->empty())
-    {        
+    {
         shape_parameters *shape_to_del = shapes_param_list_ptr->at(shapes_list_widget->currentRow());
 
         shapes_param_list_ptr->remove(shapes_list_widget->currentRow());
         shapes_list_widget->takeItem(shapes_list_widget->currentRow());
-
         delete shape_to_del;    //TODO FIXME i dont know if it's the right way to delete shape item created by "new" in OnAddOrChangeShape
     }
 }
@@ -478,6 +457,7 @@ void PageGeometry::OnGetSelectedShape(QListWidgetItem* item)
         sh_box_z_coord_1->setText(shape_box_tmp->z_coord_1);
         sh_box_z_coord_2->setText(shape_box_tmp->z_coord_2);
         sh_box_material->setCurrentIndex(sh_box_material->findText(shape_box_tmp->material));
+        stackedLayout->setCurrentIndex(0);
         transf_scale_x->setText(shape_tmp_ptr->transf_scale_x);
         transf_scale_y->setText(shape_tmp_ptr->transf_scale_y);
         transf_scale_z->setText(shape_tmp_ptr->transf_scale_z);
@@ -489,19 +469,19 @@ void PageGeometry::OnGetSelectedShape(QListWidgetItem* item)
         transf_move_y->setText(shape_tmp_ptr->transf_move_y);
         transf_move_z->setText(shape_tmp_ptr->transf_move_z);
         transforms_list_widget->clear();
-        button_transform_move->hide();
-        button_transform_scale->hide();
-        button_transform_rotate->hide();
+        button_transform_move->show();
+        button_transform_scale->show();
+        button_transform_rotate->show();
         for(int i_tr = 0; i_tr < 3; ++i_tr)
         {
             if(shape_tmp_ptr->transf_order[i_tr] != "")
                 transforms_list_widget->addItem(shape_tmp_ptr->transf_order[i_tr]);
             if(shape_tmp_ptr->transf_order[i_tr] == "Move")
-                button_transform_move->show();
+                button_transform_move->hide();
             if(shape_tmp_ptr->transf_order[i_tr] == "Scale")
-                button_transform_scale->show();
+                button_transform_scale->hide();
             if(shape_tmp_ptr->transf_order[i_tr] == "Rotate")
-                button_transform_rotate->show();
+                button_transform_rotate->hide();
         }
     }
     else if(!QString::compare(shape_tmp_ptr->type, "cylinder"))
@@ -518,6 +498,7 @@ void PageGeometry::OnGetSelectedShape(QListWidgetItem* item)
         sh_cylinder_z_coord_2->setText(shape_cylinder_tmp->z_coord_2);
         sh_cylinder_radius->setText(shape_cylinder_tmp->radius);
         sh_cylinder_material->setCurrentIndex(sh_cylinder_material->findText(shape_cylinder_tmp->material));
+        stackedLayout->setCurrentIndex(1);
     }
 
     OnSetShapeTypeLayout();

@@ -37,6 +37,7 @@ public:
     QString type;
     QString priority;
     QString material;
+    unsigned int id;
 
     QString transf_scale_x;
     QString transf_scale_y;
@@ -145,7 +146,6 @@ public:
 
     QLineEdit *sh_cylinder_name;
     QLineEdit *sh_cylinder_priority;
-    QComboBox *sh_cylinder_material;
     QLineEdit *sh_cylinder_x_coord_1;
     QLineEdit *sh_cylinder_x_coord_2;
     QLineEdit *sh_cylinder_y_coord_1;
@@ -153,6 +153,7 @@ public:
     QLineEdit *sh_cylinder_z_coord_1;
     QLineEdit *sh_cylinder_z_coord_2;
     QLineEdit *sh_cylinder_radius;
+    QComboBox *sh_cylinder_material;
 
     QListWidget *transforms_list_widget;
     QPushButton *button_transform_scale;
